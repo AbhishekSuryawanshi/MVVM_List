@@ -136,4 +136,14 @@ extension PlayerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 66
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard
+            let playerData = self.viewModel?.playerData?.data[indexPath.row],
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "PlayerDetailViewController") as? PlayerDetailViewController else {
+            return
+        }
+        viewController.configureView(with: playerData.slug)
+        self.present(viewController, animated: true)
+    }
 }
